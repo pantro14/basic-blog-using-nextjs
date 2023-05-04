@@ -19,10 +19,11 @@ import {LinkOption} from 'components/components/editor/Link/LinkForm';
 import EmbedYoutube from 'components/components/editor/ToolBar/EmbedYoutube';
 
 interface Props {
+    onOpenImageClick?(): void;
     editor: Editor | null
 }
 
-const ToolBar: FC<Props> = ({editor}): JSX.Element | null => {
+const ToolBar: FC<Props> = ({editor, onOpenImageClick}): JSX.Element | null => {
     const options = [
         {
             label: "Paragraph",
@@ -126,7 +127,7 @@ const ToolBar: FC<Props> = ({editor}): JSX.Element | null => {
             <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8'/>
             <div className='flex items-center space-x-3'>
                 <EmbedYoutube onSubmit={handleEmbedYoutube}/>
-                <Button >
+                <Button onClick={onOpenImageClick}>
                     <BsImageFill/>
                 </Button>
             </div>
