@@ -44,12 +44,12 @@ const readAllImages: NextApiHandler = async (req, res) => {
       type: "upload",
       prefix: "dev-blogs",
     });
-
     const images = resources.map(({ secure_url }: any) => ({
       src: secure_url,
     }));
     res.json({ images });
   } catch (error: any) {
+    console.log(JSON.stringify(error));
     res.status(500).json({ error: error.message });
   }
 };

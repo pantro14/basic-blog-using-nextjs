@@ -11,7 +11,6 @@ export const readFile = (req: NextApiRequest): Promise<FormidablePromise> => {
   return new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       if (err) reject(err);
-
       resolve({ files, body: fields });
     });
   });
