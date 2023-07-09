@@ -13,12 +13,12 @@ interface PostResponse extends FinalPost {
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const Update : NextPage<Props> = ({post}) => {
-    const handleSubmit = async () => {
+    const handleSubmit = async (post: FinalPost) => {
         try {
             //generate FormData
             const formData = generateFormData(post)
             //submit post
-            const data = await axios.patch('/api/posts', formData);
+            const data = await axios.patch('/api/posts/' + post.id, formData);
             console.log(data)
         }catch (error: any) {
             console.log(error.response.data);
