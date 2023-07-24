@@ -3,6 +3,8 @@ import {NextApiHandler} from 'next';
 import Posts from '../../../../models/Post';
 import {readFile} from '../../../../lib/utils';
 import {postValidationSchema, validateSchema} from '../../../../lib/validator';
+import cloudinary from '../../../../lib/cloudinary';
+import formidable from 'formidable';
 
 export const config = {
     api: { bodyParser: false },
@@ -43,6 +45,22 @@ const updatePost: NextApiHandler = async (req,res) => {
     post.tags = tags;
     post.slug = slug;
 
+    // update thumbnail only if there is any
+    const thumbnail = files.thumbnail as formidable.File;
+    if(thumbnail) {
+        const { secure_url: url, public_id} = await cloudinary.uploader
+            .upload(
+                thumbnail.filepath, {
+                    folder: 'dev-blogs',
+            });
+        // #1-cond. => the post can already have thumbnail
+        // so remove old, upload new image and the update record inside DB.
+        const publicId = post.thumbnail?.public_id;
+        if(publicId) await cloudinary.uploader.destroy(publicId);
+        // #2.cond. => the post can be without thumbnail
+        // just upload image and update record inside DB
+        post.thumbnail = {url, public_id};
+    }
     await post.save();
     res.json( { post })
 }
