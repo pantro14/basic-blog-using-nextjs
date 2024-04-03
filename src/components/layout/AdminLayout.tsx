@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import AdminNav from "components/components/common/AdminNav";
+import AdminNav from "../common/nav/AdminNav";
 import {
   AiOutlineContacts,
   AiOutlineContainer,
@@ -9,7 +9,7 @@ import {
   AiOutlineTeam,
 } from "react-icons/ai";
 import Link from "next/link";
-import AppHead from "components/components/common/AppHead";
+import AppHead from "../common/AppHead";
 
 interface Props {
   children: ReactNode;
