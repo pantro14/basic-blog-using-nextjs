@@ -6,7 +6,7 @@ interface Props {
     desc?: string;
 }
 
-export const APP_NAME = 'Blog in Next.js'
+export const APP_NAME = 'Blog in NextJS'
 const AppHead: FC<Props> = ({ title, desc }): JSX.Element => {
     return (
         <Head>
